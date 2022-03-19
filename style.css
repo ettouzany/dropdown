@@ -1,0 +1,121 @@
+
+  html {
+    font-size: 16px;
+    width:100%;height:100%;
+    overflow: hidden;
+    position: fixed;
+    top:0;left:0;
+  }
+
+  body {
+    background-color: #f7f7f7;
+    color: #575757;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+  }
+  *[contentEditable],
+  *[contentEditable]:focus {
+    border: none;
+    outline: none;
+    cursor: text;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  main{
+    position: relative;
+    /*width:425px;
+    min-height: calc(100vh - 60px);*/
+    width:100%;
+    min-height:100vh;
+    margin: auto;
+    overflow: hidden;
+  }
+  #map {
+    top:0;left:0;
+    position: absolute;
+    width: 100%;
+    height:100%;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    border: none;
+    overflow: auto;
+  }
+  @media (max-width:600px) {
+    #map {
+      border-bottom: 10px solid #fafafa;
+    }
+  }
+  #map .mapItem {
+    display: inline-block;
+    font-size: 1rem;
+    min-width: 1ch;
+    padding: 0 .1em;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+  #map .mapItem[isEmpty]::before {
+    content: attr(placeholder);
+    color: #bfbfbf;
+  }
+  #map .mapItem:focus {
+    user-select: unset;
+    -moz-user-select: unset;
+    -webkit-user-select: unset;
+    cursor: text;
+  }
+  #map #actions {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: .1s ease-in;
+  }
+  #map #actions.active {
+    transition: .1s;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  #map #actions>div {
+    font-size: inherit;
+    font-weight: 600;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background: #fafafa;
+    padding: .7em .2em;
+    min-width: 95px;
+    margin: 4px 5px;
+    border-radius: .6em;
+    box-shadow: 0 0 16px rgba(0, 0, 0, .1);
+    text-align: center;
+    color: #606060;
+    pointer-events: none;
+    transition: .2s ease-in;
+    transform: scale(1);
+  }
+  #map #actions>div:lastchild {
+    margin-right: 0;
+  }
+  #map #actions>div:firstchild {
+    margin-left: 0;
+  }
+  #map #actions>div.active{
+    transition: .1s;
+    transform: scale(1.1);
+  }
+  #map #actions>div#action-delete {
+    color: #ff2600;
+  }

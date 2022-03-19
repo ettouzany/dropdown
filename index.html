@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <style>
+        .dropdownmenu{
+            position: absolute;
+            z-index: 1;
+            background: blue;
+            padding: 22px;
+        }
+        .dragElement {
+        
+        width: 100px;
+        
+        height: 70;
+        
+        background-color:lightblue;
+        
+        display: inline-block;
+        
+        align-items: center;
+        
+        vertical-align: bottom;
+        
+        }
+        
+        </style>
+</head>
+<body>
+    <div class="dropdownmenu" id="drop">
+            dssdsd
+    </div>
+    <div id="dragElement" class="dragElement">
+
+        <p>Drag and Drop me</p>
+        
+        </div>
+
+
+    <main id="map-container">
+        <div id="map">
+        </div>
+      </main>
+
+        <script>
+            functionmove();
+
+            var dragValue;
+            var drop = document.getElementById("drop");
+            drop.style.display = "none";
+            function functionmove() {
+                var element = document.getElementById("dragElement");
+                element.style.position = "absolute";
+                element.onmousedown = function () {
+                    dragValue = element;
+                    if (event.which == 3) {
+                        //alert("right clicked!");
+                        drop.style.display = "block";
+                    }
+                };
+                element.onmouseup = function () {
+                    dragValue = null;
+                };
+                document.onmousemove = function (e) {
+                var x = e.pageX;
+                var y = e.pageY;
+                drop.style.left = x + "px";
+                drop.style.top = y + "px";
+                dragValue.style.left = x + "px";
+                dragValue.style.top = y + "px";
+              };
+            }
+      
+      </script>
+      <!-- <script src="./script.js"></script> -->
+</body>
+</html>
