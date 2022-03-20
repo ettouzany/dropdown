@@ -20,7 +20,8 @@ var mapData={
   function initFontSize(){
     var fsize=document.getElementById("map-container").offsetWidth*fontSizeRef/workspaceSize;
     document.getElementsByTagName("html")[0].style="font-size:"+fsize+"px";
-    document.getElementById("actions").style="font-size:"+(fsize<=28 ? fsize : 28)+"px";
+    if(document.getElementById("actions"))
+      document.getElementById("actions").style="font-size:"+(fsize<=28 ? fsize : 28)+"px";
   }
   function handleMapClick(e) {
     var event = e;
@@ -62,6 +63,8 @@ var mapData={
         parent.onmouseup = null;
         parent.ontouchend = null;
       }
+      if(!mouseUp())
+      document.getElementById("drop").style.display = "none";
     } else if (e.target.classList.contains("mapItem")) {
       mapItemMove(event, e.target);
     }
@@ -124,11 +127,18 @@ var mapData={
     var initX = getXP(target.offsetLeft);
     var initY = getYP(target.offsetTop);
     var isItTouchScreen = event.touches
+    var drop;
+    drop = document.getElementById("drop");
     if (!(target.hasAttribute("contentEditable"))) {
+      if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
+      document.getElementById("drop").style.display = "none";
       if (event.which === 3) {
         document.body.oncontextmenu = function(e) { e.preventDefault(); };
         onmouseup = function(e) {
-          removeMapItem(target);
+          //removeMapItem(target);
+          drop.style.display = "block";
+          drop.style.left = e.pageX + "px";
+          drop.style.top = e.pageY + "px";
           setTimeout(function() { document.body.oncontextmenu = null; }, 100);
           onmouseup = null;
         };
@@ -158,6 +168,7 @@ var mapData={
           function onMouseMove(e) {
             target.onmouseup = null;
             target.ontouchend = null;
+            
             var parent = document.getElementById('map');
             var parentPosX = parent.getBoundingClientRect().x;
             var parentPosY = parent.getBoundingClientRect().y;
@@ -197,7 +208,15 @@ var mapData={
             }
           }
           onmouseup = function() { onMouseUp() };
-          ontouchend = function() { onMouseUp() };
+          ontouchend = function() { 
+            onMouseUp();
+            var drop;
+            drop = document.getElementById("drop");
+            drop.style.display = "block";
+            console.log(event.touches[0].pageX);
+            drop.style.left = event.touches[0].pageX + "px";
+            drop.style.top = event.touches[0].pageY + "px";
+           };
 
           function onMouseUp() {
             document.body.style = "";
