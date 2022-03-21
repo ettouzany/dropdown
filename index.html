@@ -16,6 +16,7 @@
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 10px;
             display: none;
+            min-width: fit-content;
         }
         .dropdownmenu > span{
             display: inline-grid;
@@ -47,6 +48,12 @@
         .dropdownmenu > span:last-child:after { /* ADDED */
         display: none; /* Hide the divider for the last block */
         }
+        .dropdownmenu > span:last-child { /* ADDED */
+        color: red; /* Hide the divider for the last block */
+        }
+        .dropdownmenu > span:last-child:hover { /* ADDED */
+            background-color: #ffcaca;
+        }
         .dragElement {
         
         width: 100px;
@@ -76,7 +83,7 @@
 
     <main id="map-container">
         <div class="dropdownmenu" id="drop">
-            <span>
+            <span onclick="renameItem()">
                 <span><svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.25 11.095V13.375C0.25 13.585 0.415 13.75 0.625 13.75H2.905C3.0025 13.75 3.1 13.7125 3.1675 13.6375L11.3575 5.45501L8.545 2.64251L0.3625 10.825C0.2875 10.9 0.25 10.99 0.25 11.095ZM13.5325 3.28001C13.825 2.98751 13.825 2.51501 13.5325 2.22251L11.7775 0.467513C11.485 0.175013 11.0125 0.175013 10.72 0.467513L9.3475 1.84001L12.16 4.65251L13.5325 3.28001Z" fill="#535353"/>
                     </svg>
@@ -104,7 +111,7 @@
                     </span>
                 <span>Link</span>
             </span>
-            <span>
+            <span onclick="removeItem()">
                 <span><svg width="16" height="16" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.5 12.25C1.5 13.075 2.175 13.75 3 13.75H9C9.825 13.75 10.5 13.075 10.5 12.25V4.75C10.5 3.925 9.825 3.25 9 3.25H3C2.175 3.25 1.5 3.925 1.5 4.75V12.25ZM10.5 1H8.625L8.0925 0.4675C7.9575 0.3325 7.7625 0.25 7.5675 0.25H4.4325C4.2375 0.25 4.0425 0.3325 3.9075 0.4675L3.375 1H1.5C1.0875 1 0.75 1.3375 0.75 1.75C0.75 2.1625 1.0875 2.5 1.5 2.5H10.5C10.9125 2.5 11.25 2.1625 11.25 1.75C11.25 1.3375 10.9125 1 10.5 1Z" fill="#FF0000"/>
                     </svg>

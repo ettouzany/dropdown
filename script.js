@@ -1,6 +1,8 @@
+var g_target = null;
 var mapData={
     items:[]
   };
+  
   var fontSizeRef=16;
   var workspaceSize=425;
   var scrollSpeed=4;
@@ -63,7 +65,7 @@ var mapData={
         parent.onmouseup = null;
         parent.ontouchend = null;
       }
-      if(!mouseUp())
+      //if(!mouseUp())
       document.getElementById("drop").style.display = "none";
     } else if (e.target.classList.contains("mapItem")) {
       mapItemMove(event, e.target);
@@ -136,9 +138,11 @@ var mapData={
         document.body.oncontextmenu = function(e) { e.preventDefault(); };
         onmouseup = function(e) {
           //removeMapItem(target);
-          drop.style.display = "block";
-          drop.style.left = e.pageX + "px";
-          drop.style.top = e.pageY + "px";
+          //console.log(target);
+         // console.log(target.style.top);
+          drop.style.display = "flex";
+          drop.style.left = getPosFromTarget(target)[0];
+          drop.style.top = getPosFromTarget(target)[1];
           setTimeout(function() { document.body.oncontextmenu = null; }, 100);
           onmouseup = null;
         };
@@ -212,10 +216,10 @@ var mapData={
             onMouseUp();
             var drop;
             drop = document.getElementById("drop");
-            drop.style.display = "block";
+            drop.style.display = "flex";
             console.log(event.touches[0].pageX);
-            drop.style.left = event.touches[0].pageX + "px";
-            drop.style.top = event.touches[0].pageY + "px";
+            drop.style.left = getPosFromTarget(target)[0];
+            drop.style.top = getPosFromTarget(target)[1];
            };
 
           function onMouseUp() {
@@ -293,6 +297,37 @@ var mapData={
       item.setAttribute('id', mapData.items[i].id);
       map.appendChild(item);
     }
+  }
+  function getPosFromTarget(target)
+  {
+  
+    var output = [0,0];
+    var drop  = document.getElementById("drop");
+    g_target = target;
+    var map  = document.getElementById("map-container");
+    var right = target.offsetLeft +target.offsetWidth/2+ drop.offsetWidth/2-map.offsetWidth;
+    var left = target.offsetLeft +target.offsetWidth/2- drop.offsetWidth/2;
+    // console.log(left);
+    a = right<0?left<0?left:0:right;
+
+    // console.log("this -",(target.offsetLeft +target.offsetWidth/2+ drop.offsetWidth/2)-map.offsetWidth);
+    output[0] = target.offsetLeft+target.offsetWidth/2 - drop.offsetWidth/2-a + "px";
+    if(target.offsetTop+target.offsetHeight + 4 + drop.offsetHeight < map.offsetHeight)
+      output[1] = target.offsetTop+target.offsetHeight + 4 + "px";
+    else
+      output[1] = target.offsetTop-drop.offsetHeight - 8 + "px";
+
+    return output;
+  }
+  function removeItem()
+  {
+    removeMapItem(g_target);
+    document.getElementById("drop").style.display = "none";
+  }
+  function renameItem()
+  {
+    removeMapItem(g_target);
+    document.getElementById("drop").style.display = "none";
   }
   function getXP(x){
     return Math.floor(x);//*100/document.getElementById("map-container").offsetWidth;
