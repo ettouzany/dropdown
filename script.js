@@ -140,7 +140,7 @@ var mapData={
           //removeMapItem(target);
           //console.log(target);
          // console.log(target.style.top);
-          drop.style.display = "flow-root";
+          drop.style.display = "flex";
           drop.style.left = getPosFromTarget(target)[0];
           drop.style.top = getPosFromTarget(target)[1];
           setTimeout(function() { document.body.oncontextmenu = null; }, 100);
@@ -216,7 +216,7 @@ var mapData={
             onMouseUp();
             var drop;
             drop = document.getElementById("drop");
-            drop.style.display = "flow-root";
+            drop.style.display = "flex";
             console.log(event.touches[0].pageX);
             drop.style.left = getPosFromTarget(target)[0];
             drop.style.top = getPosFromTarget(target)[1];
