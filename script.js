@@ -326,7 +326,8 @@ var mapData={
   }
   function renameItem()
   {
-    removeMapItem(g_target);
+    //removeMapItem(g_target);
+    mapItemOnClick(g_target);
     document.getElementById("drop").style.display = "none";
   }
   function getXP(x){
